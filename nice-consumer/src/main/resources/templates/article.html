@@ -1,0 +1,16 @@
+<!-- 文章信息 -->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${article?.articleTitle}"></title>
+</head>
+<body>
+    <!-- 文章名字 -->
+    <h1 th:text="${article?.articleTitle}"></h1>
+    <!-- 文章内容 -->
+    <p th:utext="${article?.articleContent}"></p>
+</body>
+</html>
