@@ -17,6 +17,7 @@ public class NiceProviderApplication {
 
     /**
      * 主函数启动
+     *
      * @param args
      */
     public static void main(String[] args) {

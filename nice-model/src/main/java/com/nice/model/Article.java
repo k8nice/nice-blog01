@@ -7,6 +7,7 @@ import java.util.Date;
 
 /**
  * 文章实体类
+ *
  * @author nice
  */
 @Data
@@ -20,10 +21,10 @@ public class Article implements Serializable {
      * 文章内容
      * 文章作者
      */
-    private Long   articleId;
+    private Long articleId;
     private String articleTitle;
     private String articleType;
-    private Date   articleDate;
+    private Date articleDate;
     private String articleContent;
     private String articleAuthor;
 }

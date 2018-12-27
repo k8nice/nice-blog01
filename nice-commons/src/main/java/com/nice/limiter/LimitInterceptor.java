@@ -38,7 +38,7 @@ public class LimitInterceptor {
     }
 
     @Around("execution(public * *(..)) && @annotation(com.nice.limiter.annotation.Limit)")
-    public Object interceptor(ProceedingJoinPoint pjb){
+    public Object interceptor(ProceedingJoinPoint pjb) {
         MethodSignature signature = (MethodSignature) pjb.getSignature();
         Method method = signature.getMethod();
         Limit limitAnnotation = method.getAnnotation(Limit.class);
@@ -47,7 +47,7 @@ public class LimitInterceptor {
         String key;
         int limitPeriod = limitAnnotation.period();
         int limitCount = limitAnnotation.count();
-        switch (limitType){
+        switch (limitType) {
             case IP:
                 key = getIpAddress();
                 break;
@@ -57,19 +57,19 @@ public class LimitInterceptor {
             default:
                 key = StringUtils.upperCase(method.getName());
         }
-        ImmutableList<String> keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix()),key);
+        ImmutableList<String> keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix()), key);
         try {
             String luaScript = buildLuaScript();
-            RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript,Number.class);
-            Number count = limitRedisTemplate.execute(redisScript,keys,limitCount,limitPeriod);
-            logger.info("Access try count is {} for name={} and key = {}",count,name,key);
-            if (count != null && count.intValue() <= limitCount){
+            RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
+            Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
+            logger.info("Access try count is {} for name={} and key = {}", count, name, key);
+            if (count != null && count.intValue() <= limitCount) {
                 return pjb.proceed();
-            }else {
+            } else {
                 throw new RuntimeException("You have bean dragged into the blacklist");
             }
         } catch (Throwable e) {
-            if (e instanceof RuntimeException){
+            if (e instanceof RuntimeException) {
                 throw new RuntimeException(e.getLocalizedMessage());
             }
             throw new RuntimeException("server exception");
@@ -99,13 +99,13 @@ public class LimitInterceptor {
     private String getIpAddress() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)){
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-Ip");
         }
-        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)){
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)){
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
         return ip;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 import java.util.List;
+
 /**
  * @author nice
  */
@@ -28,11 +29,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 查询全部文章
+     *
      * @return List<Article>
      */
     @Override
     public List<Article> queryArticleAll() {
-        final PageInfo<Article> pageInfo = PageHelper.startPage(1,10).setOrderBy("article_id desc").doSelectPageInfo(() -> this.articleMapper.queryArticleAll());
+        final PageInfo<Article> pageInfo = PageHelper.startPage(1, 10).setOrderBy("article_id desc").doSelectPageInfo(() -> this.articleMapper.queryArticleAll());
         List<Article> list = pageInfo.getList();
         return list;
     }
@@ -42,13 +44,15 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<String> queryArticleTitleAll() {
-        final PageInfo<String> pageInfo = PageHelper.startPage(1,10).setOrderBy("article_id desc").doSelectPageInfo(() -> this.articleMapper.queryArticleTitleAll());
+        final PageInfo<String> pageInfo = PageHelper.startPage(1, 10).setOrderBy("article_id desc").doSelectPageInfo(() -> this.articleMapper.queryArticleTitleAll());
         List<String> list = pageInfo.getList();
         return list;
     }
 
-    /**Article
+    /**
+     * Article
      * 根据文章标题查询文章
+     *
      * @param articleTitle
      * @return
      */

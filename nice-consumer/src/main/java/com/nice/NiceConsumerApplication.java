@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * 启动类
+ *
  * @author nice
  */
 @SpringBootApplication
@@ -16,6 +17,7 @@ public class NiceConsumerApplication {
 
     /**
      * 主函数开启
+     *
      * @param args
      */
     public static void main(String[] args) {

@@ -13,20 +13,23 @@ import java.util.List;
 public interface ArticleMapper extends BaseMapper<Article> {
     /**
      * 查询所有文章
+     *
      * @return List<Article>
      */
     List<Article> queryArticleAll();
 
     /**
      * 查询所有文章标题
+     *
      * @return List<String>
      */
-    List<String>  queryArticleTitleAll();
+    List<String> queryArticleTitleAll();
 
     /**
      * 根据文章标题查询文章内容
+     *
      * @param articleTitle
      * @return Article
      */
-    Article       queryArticleByArticleTitle(String articleTitle);
+    Article queryArticleByArticleTitle(String articleTitle);
 }
